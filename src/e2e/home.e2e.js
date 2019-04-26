@@ -11,7 +11,7 @@ describe('Homepage', () => {
     const page = await browser.newPage();
     await page.goto(BASE_URL, { waitUntil: 'networkidle2' });
     const text = await page.evaluate(() => document.getElementsByTagName('h1')[0].innerText);
-    expect(text).toContain('太公管工管理后台');
+    expect(text).toContain('车辆违章管理');
 
     await page.close();
     browser.close();
