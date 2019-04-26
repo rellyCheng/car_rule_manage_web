@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>管工详情页</title>
+    <link rel="stylesheet" type="text/css" href="css/systemDetails.css"/>
+    <link rel="stylesheet" type="text/css" href="js/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="font/iconfont.css"/>
+</head>
+
+<body style="background: url(img/bg.png) no-repeat; background-size: cover;background-attachment: fixed;">
+	<div class="content">
+		<!--头部-->
+		<div class="top">
+			<img width="100%" height="80px" src="img/d-bg.png" style="z-index:-1;"/>
+			<div class="topbox">
+				<span class="s1">匀视股份</span>
+				<span class="s2">镇海新城镇海大道北侧1号地块（佳源都市）--项目详情</span>
+				<span class="s3" id="localtime"></span>
+			</div>			
+		</div>
+		<div style="padding: 0 20px;">
+			<!--左边内容-->
+			<div class="leftbox">
+				<a href="system.html" class="back"><span class="icon iconfont icon-jiantou-zuo"></span>返回上级</a>
+				<!--左边第一部分内容-->
+				<div class="left-content">
+					<h3>项目概况</h3>
+					<p class="text">项目名称:镇海新城镇海大道北侧1号地块（佳源都市）</p>				
+					<!--项目概况-->
+					<div class="left-details">
+						<ul>
+							<li>
+								<span class="span1"><i class="icon iconfont icon-renwu-ren"></i>项目经理</span>
+								<span class="span2">喻毅</span>
+								<span class="span3">13738438886</span>							
+							</li>
+							<li>
+								<span class="span1"><i class="icon iconfont icon-anquan"></i>安全员</span>
+								<span class="span2">王春生</span>
+								<span class="span3">13567493048</span>
+							</li>
+							<li>
+								<span class="span1"><i class="icon iconfont icon-gongzi"></i>民工工资管理员</span>
+								<span class="span2">侯波进</span>
+								<span class="span3">13336881588</span>
+							</li>
+							<li>
+								<span class="span1"><i class="icon iconfont icon-qiye"></i>施工总承包企业</span>
+								<span class="span2">宁波建工工程集团有限公司</span>
+								<span class="span3">宁波市鄞州区宁穿路538号</span>
+							</li>
+							<li>
+								<span class="span1"><i class="icon iconfont icon-loufang"></i>劳务分包单位</span>
+								<span class="span2">宁波天久建筑劳务有限公司</span>
+								<span class="span3">宁波高新区江南路568号5-27</span>
+							</li>
+							<li>
+								<span class="span1"><i class="icon iconfont icon-gangjigongzi"></i>宁波最低工资标准</span>
+								<span class="span2">2010元/月</span>
+								<span class="span3">中国建设银行</span>
+							</li>
+							<li>
+								<div class="box">
+									<span class="t1">实名制进度:</span>
+									<div class="layui-progress layui-progress-big" lay-showPercent="yes" >		
+									  	<div class="layui-progress-bar layui-bg-green" lay-percent="100%" ></div>
+									</div>
+								</div>	
+							</li>
+						</ul>
+					</div>				
+				</div>
+				<!--左边第二部分内容-->
+				<div class="left-content1">
+					<h3>人员数据</h3>
+					<div class="left-content1-details">
+						<div class="left-box1">
+							<div id="d-zhexian" style="height: 250px;"></div>
+						</div>
+						<div class="left-box2">
+							<ul>
+								<li>
+									<p>
+										<span>管理人员</span>
+										<span>0</span>
+									</p>
+								</li>
+								<li>
+									<p>
+										<span>装饰装修班组</span>
+										<span>0</span>
+									</p>
+								</li>
+								<li>
+									<p>
+										<span>防水班组</span>
+										<span>0</span>
+									</p>
+								</li>
+								<li>
+									<p>
+										<span>木工组</span>
+										<span>0</span>
+									</p>
+								</li>
+								<li>
+									<p>
+										<span>水电组</span>
+										<span>0</span>
+									</p>
+								</li>
+							</ul>
+						</div>										
+					</div>					
+				</div>
+			</div>
+			<!--中间内容-->
+			<div class="centerbox">				
+				<div class="centerbox-details">
+					<div class="center-header">民工务工情况</div>
+					<div id="d-zhu" style="height:400px;"></div>
+					<div id="d-huan" style="height:400px;"></div>				
+				</div>			
+			</div>
+			<!--右边内容-->
+			<div class="rightbox">				
+				<div class="right-content">
+					<h3>今日出勤</h3>
+					<ul>
+						
+						
+						<li>
+							
+						</li>
+						
+					</ul>					
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<script src="js/jquery-1.11.2.min.js"></script>
+	<script src="js/time.js"></script>
+	<script src="js/layui/layui.js"></script>
+	<script src="js/systemDetails.js"></script>
+	<!--引入echarts图表开始-->
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+    <script type="text/javascript" src="js/d-huan2.js"></script>
+    <script type="text/javascript" src="js/d-zhu2.js"></script>
+    <script type="text/javascript" src="js/d-zhexian2.js"></script>
+    <!--引入echarts图表结束-->
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+.c-header .input-card{
+	float: left;
+	margin: 30px 0 0 0;
+}
+.input-card label{
+	float: left;
+	line-height: 30px;
+	font-size: 20px;
+	color: #65c6e7;
+	font-weight: 900;
+}
+.input-item{
+	float:left;
+	margin: 0 0 0 10px;
+}
+.input-item-prepend{
+	float: left;
+	line-height: 30px;
+	font-size: 16px;
+}
+.input-item-text{
+	display: inline-block;
+	line-height: 30px;
+	font-size: 18px;
+	color: #65c6e7;
+	margin: 0 10px 0 0;
+}
+#level{
+	height: 30px;
+	width: 80px;
+	background: rgba(255,255,255,.1);
+    border: 1px solid #31467d;
+    color: #65c6e7;
+    border-radius: 4px;
+}
+#district{
+	height: 27px;
+	width: 100px;
+	margin:0 10px 0 0;
+	padding: 0 2px;
+	background: rgba(255,255,255,.1);
+    border: 1px solid #31467d;
+    color: #65c6e7;
+    border-radius: 4px;
+}
+.btn{
+	line-height: 30px;
+	border: 0;
+	padding: 0 20px;
+	border-radius: 4px;
+	background:#65c6e7;
+    /*border: 1px solid #31467d;*/
+    color:#fff;
+}
+/*进度条的颜色*/
+.layui-bg-green{
+	background:#65c6e7!important;
+}
+/*轮播图*/
+.l-imgbox .swiper-container{
+  height: 460px;
+  color: #fff;
+  text-align: center;
+}
+.l-imgbox .swiper-slide{
+	width: 100%;
+}
+.l-imgbox .pagination {
+  position: absolute;
+  z-index: 20;
+  right: 10px;
+  top: 10px;
+}
+.l-imgbox .swiper-pagination-switch {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background: #555;
+  margin: 0 0px 5px;
+  opacity: 0.8;
+  border: 1px solid #FFFFFF;
+  cursor: pointer;
+}
+.l-imgbox .swiper-active-switch {
+ background:#FFFFFF;
+}

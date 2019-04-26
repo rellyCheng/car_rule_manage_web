@@ -1,0 +1,338 @@
+*{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+} 
+/*头部*/
+.topbox{
+	display: flex;
+	display: -webkit-flex;
+	justify-content: space-between;
+	padding:10px 2%;
+	overflow: hidden;
+	margin: -90px 0 0 0;
+}
+.s1{
+	width: 20%;
+	font-size: 26px;
+    color: #52ffff;
+    font-weight: bold;
+}
+.s2{
+	width: 60%;
+	float: left;
+	text-align: center;
+	font-size: 48px;
+	font-weight: bold;
+	display: inline-block;
+	margin: 15px 0 0 0;
+	background-image:-webkit-linear-gradient(left,#04a8f0,#1eaed2,#4177ed); 
+    -webkit-background-clip:text; 
+    -webkit-text-fill-color:transparent;
+}
+.s3{
+	width: 20%;
+	float: left;
+	text-align: right;
+	display: inline-block;
+	margin: 10px 0 0 0;
+	font-size: 20px;
+}
+
+/*中间内容*/
+.centerbox{
+	/*overflow: hidden;*/
+}
+/*左侧*/
+.left{
+	width:25%;
+	float: left;
+	/*background:rgba(255,255,255,.4);*/	
+}
+.l-header{
+	margin: -45px auto 0;
+	padding:10px 20px;
+	height: 90px;
+	/*background: red;*/
+}
+.l-header-top p{
+	color: #65c6e7;
+	margin: 0 0 0 20px;
+	font-size: 18px;
+}
+.weather{
+	padding:10px 20px;
+	margin: -10px 0 0 0;
+}
+.weather span{
+	color: #65c6e7;
+	font-size: 20px;
+	margin: 20px 15px 0 0;
+}
+.l-box1{
+	padding: 10px 20px 0;
+	margin: 0 auto 30px;
+}
+.l-box1 .l-imgbox{
+	height: 100%;
+	display: block;
+	/*margin: 0 0 0 10px;*/
+	/*background:#f2f2f2;*/
+}
+.l-box1 .l-imgbox{
+	display: block;
+	margin: 0 0 15px 15px;
+	/*border: 1px solid #31467d;*/
+	background:rgba(255,255,255,.1);
+}
+.workerbox{
+	/*border: 1px solid #31467d;*/
+	display: block;
+	overflow: hidden;
+	padding: 5px 0;
+}
+/*身份信息*/
+ .imgbox{
+	float: left;
+	width: 30%;
+	height: 100%;
+}
+.imgbox img{
+	height: 60px;
+	margin: 10px auto;
+	display:block;
+	padding: 0 15px;
+}
+.textbox{
+	float: left;
+	width: 70%;
+	padding: 10px 0 0 0;
+}
+.textbox p{
+	color: #65c6e7;
+	font-size: 16px;
+	line-height: 30px;
+	font-weight: bold;
+	text-align: left;
+}
+.textbox p span{
+	display: inline-block;
+	margin: 0 10px 0 0;
+	text-align: left;
+	
+}
+.tiao1{
+	display: block;
+	margin: 0 0 10px 20px;
+}
+.tiao2{
+	float: left;
+	display: inline-block;
+	margin: 0 10px 0 0;
+}
+.tiao3{
+	position: absolute;
+	margin: 0 0 0 15px;
+}
+.tiao4{
+	position: absolute;
+	bottom: 30px;
+}
+
+/*中间内容*/
+.center{
+	width: 50%;
+	float: left;
+	/*background: #AAAAAA;*/
+}
+.c-header{
+	overflow: hidden;
+	height: 75px;
+	background: url(../img/select.png) no-repeat;
+	background-size: 100% 100%;
+	padding: 0 2%;
+}
+.loading-container {
+	width:600px;
+	height:300px;
+	padding:50px;
+	margin:0px auto;
+}
+.loading-bar {
+	border-radius:10px;
+	background-color:#282f32;
+}
+.amount {
+	height:20px;
+	border-radius:10px;
+	white-space:nowrap;
+	overflow:hidden;
+	margin-top:-9px;
+}
+.lines {
+	background:url('lines.svg') repeat-x;
+	height:120%;
+	text-align:center;
+	margin-top:-25px;
+	border-radius:10px;
+	-webkit-animation:moveBars 1s linear infinite;
+	-moz-animation:moveBars 1s linear infinite;
+	-ms-animation:moveBars 1s linear infinite;
+	-o-animation:moveBars 1s linear infinite;
+	animation:moveBars 1s linear infinite;
+	color:#fff;
+	text-shadow:0px 0px 10px rgba(0,0,0,0.3);
+}
+.loaded {
+	text-align:center;
+	position:relative;
+	text-shadow:0px 0px 10px rgba(0,0,0,0.2);
+	color:#fff;
+	z-index:9999;
+}
+.blue {
+	background-color:#20b9c3;
+}
+
+
+
+/*右侧*/
+.right{
+	width: 25%;
+	float: left;
+	/*background:#999;*/
+}
+.r-header{
+	margin: -45px auto 0;
+    padding: 10px 20px;
+    height: 90px;
+    /*background: red;*/
+}
+.r-header-top p{
+	float: right;
+	color: #65c6e7;
+	margin: 0px 20px 0x 0;
+	font-size: 18px;
+	line-height: 20px;
+}
+.r-header-box p{
+	width: 25%;
+	float: left;
+	margin: -10px 0 0 0;
+	text-align: center;
+}
+.r-header-box img{
+	display: block;
+	margin: 0 auto 5px;
+}
+.r-header-box span{
+	text-align: center;
+	display:block;
+	margin: 5px 10px;
+	color:#65c6e7;
+}
+.r-header-box span em{
+	color: #04ba19;
+}
+/*右侧图形列表*/
+.r-box1{
+	height: 230px;
+	padding:0 20px;
+	margin: 10px auto;
+}
+.r-box2{
+	padding:0 20px;
+	margin: 0 auto;	
+}
+.r-box1-header{
+	border: 1px solid #31467d;
+	background:rgba(255,255,255,.1);
+	line-height: 20px;
+	padding: 10px;
+	font-size: 18px;
+	color: #65c6e7;
+}
+.r-box2-header{
+	border: 1px solid #31467d;
+	background:rgba(255,255,255,.1);
+	margin: 0 0 10px 0;
+	line-height: 20px;
+	padding: 10px;
+	font-size: 18px;
+	color: #65c6e7;
+}
+.r-box2-content{
+	height: 230px;
+}
+
+/*地图组件*/
+#outer-box{
+	padding:10px 0;
+}	
+#container{
+	height: 500px;
+	margin:0 auto 0;
+	z-index: 9999;
+	border: 1px solid #31467d;
+}
+
+
+/*底部*/ 	 
+.bottombox{
+	width: 100%;
+	height: 300px;
+	margin: 20px 0 0 0;
+	/*position: absolute;*/
+}
+/*建设规模*/
+.piebox{
+	height: 300px;
+	width: 23%;
+	float: left;
+	padding: 0 1%;
+}
+/*.piebox .header{
+	border: 1px solid #31467d;
+	background:rgba(255,255,255,.1);
+	margin: 0 0 10px 0;
+	line-height: 25px;
+	padding: 10px;
+	font-size: 16px;
+	color: #65c6e7;
+}*/
+.piebox .content{
+	height: 300px;
+}
+
+
+
+/*地图弹窗样式控制*/
+.amap-info-content{
+	padding: 20px 18px 10px 10px;    
+}
+.opencontent{
+	width: 350px;
+	overflow: hidden;
+    border: 1px solid #dcdcdc;
+}
+.openbox{
+	border-bottom:1px solid #dcdcdc;
+	overflow: hidden;
+}
+.openbox .t1{
+	padding: 5px;
+	text-align: center;
+    float: left;
+    width: 25%;
+    font-weight: bold;
+}
+.openbox .t2{
+	padding: 5px;
+	float: right;
+	font-size: 10px;
+	border-left: 1px solid #dcdcdc;
+	width: 65%;
+}
+.openbox a{
+	color:#04a8f0;
+}
