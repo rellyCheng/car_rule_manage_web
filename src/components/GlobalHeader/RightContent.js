@@ -38,9 +38,7 @@ export default class GlobalHeaderRight extends PureComponent {
       <div className={className}>
           <Dropdown overlay={menu}>
             <span className={`${styles.action} ${styles.account}`}>
-                <Avatar size="default" style={{ backgroundColor: currentUser.bgColor }}>
-                 大
-                </Avatar>
+                <Avatar size="default"   src={`http://file.1024sir.com/${sessionStorage.getItem("userImg")}`}/>
             </span>
           </Dropdown>
         <SelectLang className={styles.action} />

@@ -12,6 +12,7 @@ export default {
 
   state: {
     status: undefined,
+    currentUser:{}
   },
 
   effects: {
@@ -21,10 +22,10 @@ export default {
       if (response.state === "OK") {
         yield put({
           type: 'changeLoginStatus',
-          payload: response,
+          payload: response
         });
-        sessionStorage.setItem('name', response.data.username);
-     
+        sessionStorage.setItem('name', response.data.name);
+        sessionStorage.setItem('userImg', response.data.image);
         reloadAuthorized();
         yield put(routerRedux.replace('/index'));
       } else {
@@ -48,6 +49,7 @@ export default {
         ...state,
         status: payload.status,
         type: payload.type,
+        currentUser:payload.data
       };
     },
   },
