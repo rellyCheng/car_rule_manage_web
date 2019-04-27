@@ -64,6 +64,54 @@ models: () => [
         "exact": true
       },
       {
+        "path": "/userManage",
+        "name": "userManage",
+        "icon": "user",
+        "authority": [
+          "admin"
+        ],
+        "component": _dvaDynamic({
+  app: window.g_app,
+models: () => [
+  import('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/pages/User/models/userManage.js').then(m => { return { namespace: 'userManage',...m.default}})
+],
+  component: () => import('../User/UserManage'),
+  LoadingComponent: require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/components/PageLoading/index').default,
+}),
+        "exact": true
+      },
+      {
+        "path": "/brokeManage",
+        "name": "brokeManage",
+        "icon": "user",
+        "authority": [
+          "admin"
+        ],
+        "component": _dvaDynamic({
+  app: window.g_app,
+models: () => [
+  import('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/pages/BrokeInfoManage/models/brokeManage.js').then(m => { return { namespace: 'brokeManage',...m.default}})
+],
+  component: () => import('../BrokeInfoManage/BrokeInfoManage'),
+  LoadingComponent: require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/components/PageLoading/index').default,
+}),
+        "exact": true
+      },
+      {
+        "path": "/myBrokeManage",
+        "name": "myBrokeManage",
+        "icon": "user",
+        "component": _dvaDynamic({
+  app: window.g_app,
+models: () => [
+  import('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/pages/BrokeInfoManage/models/brokeManage.js').then(m => { return { namespace: 'brokeManage',...m.default}})
+],
+  component: () => import('../BrokeInfoManage/MyBrokeInfoManage'),
+  LoadingComponent: require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/components/PageLoading/index').default,
+}),
+        "exact": true
+      },
+      {
         "component": _dvaDynamic({
   
   component: () => import('../404'),
