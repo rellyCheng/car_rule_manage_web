@@ -5,7 +5,6 @@ import hash from 'hash.js';
 import { isAntdPro } from './utils';
 import token from './token';
 
-const appVersion = '1.01'
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -24,31 +23,6 @@ const codeMessage = {
   504: '网关超时。',
 };
 
-let flag = true;
-const openRefresh = () => {
-
-  const key = `open${Date.now()}`;
-  const btn = (
-    <Button type="primary" onClick={() =>  window.location.reload()}>
-      刷新
-    </Button>
-  );
-  if(flag){
-    notification.open({
-      message: 'lalala~lalala~lalala~~~',
-      description: '有新版本发布了，请点击刷新按钮更新最新版本。',
-      btn,
-      key,
-      duration:null
-    });
-    flag = false;
-  }
-  
- 
-};
-
-
-
 const checkStatus = response => {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -63,12 +37,6 @@ const checkStatus = response => {
   error.response = response;
   throw error;
 };
-
-function buildAuthorization  ()  {
-  const tokenVal = token.get();
-  // const tokenVal = '0002422d-0f06-11e8-94f4-d4ae52d0c490';
-  return (token !== '') ? `Bearer ${tokenVal || ''}` : '';
-}
 
 const cachedSave = (response, hashcode) => {
   /**
@@ -126,7 +94,6 @@ export default function request(url, option) {
         'Content-Type': 'application/json; charset=utf-8',
         ...newOptions.headers,
       };
-      newOptions.headers.Authorization = buildAuthorization(); // 增加的代码
       newOptions.body = JSON.stringify(newOptions.body);
     } else {
       // newOptions.body is FormData
@@ -134,7 +101,6 @@ export default function request(url, option) {
         Accept: 'application/json',
         ...newOptions.headers,
       };
-      newOptions.headers.Authorization = buildAuthorization(); // 增加的代码
     }
   }
 
@@ -157,11 +123,6 @@ export default function request(url, option) {
     .then(checkStatus)
     .then(response => cachedSave(response, hashcode))
     .then(response => {
-      console.log(response.headers.get('App-Version'));
-      console.log(appVersion)
-      if(response.headers.get('App-Version')!=appVersion && process.env.API_ENV!='dev'){
-        openRefresh();
-      }
       // DELETE and 204 do not return data by default
       // using .json will report an error.
       if (newOptions.method === 'DELETE' || response.status === 204) {
@@ -179,17 +140,6 @@ export default function request(url, option) {
         });
         return;
       }
-    //   // environment should not be used
-    //   if (status === 403) {
-    //     router.push('/exception/403');
-    //     return;
-    //   }
-    //   if (status <= 504 && status >= 500) {
-    //     router.push('/exception/500');
-    //     return;
-    //   }
-    //   if (status >= 404 && status < 422) {
-    //     router.push('/exception/404');
-    //   }
+
     });
 }

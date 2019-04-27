@@ -26,7 +26,7 @@ let routes = [
         "component": _dvaDynamic({
   app: window.g_app,
 models: () => [
-  import('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/pages/User/models/register.js').then(m => { return { namespace: 'register',...m.default}})
+  import('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/pages/User/models/userManage.js').then(m => { return { namespace: 'userManage',...m.default}})
 ],
   component: () => import('../User/Login'),
   LoadingComponent: require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/components/PageLoading/index').default,

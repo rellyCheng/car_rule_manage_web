@@ -18,36 +18,14 @@ export default {
     *login({ payload }, { call, put }) {
       const response = yield call(fakeAccountLogin, payload);
       // Login successfully
-      if (response.state === 1) {
+      if (response.state === "OK") {
         yield put({
           type: 'changeLoginStatus',
           payload: response,
         });
-        token.save(response.data.token);
         sessionStorage.setItem('name', response.data.username);
-        sessionStorage.setItem('userJid', response.data.userJid);
-        sessionStorage.setItem('userName', response.data.userName);
-        sessionStorage.setItem('companyJid', response.data.companyJid);
-        sessionStorage.setItem('accountJid', response.data.accountJid);
-        sessionStorage.setItem('accountName', response.data.accountName);
-        sessionStorage.setItem('companyName', response.data.companyName);
-        sessionStorage.setItem('roleEnum', response.data.roleEnum);
+     
         reloadAuthorized();
-        // const urlParams = new URL(window.location.href);
-        // const params = getPageQuery();
-        // let { redirect } = params;
-        // if (redirect) {
-        //   const redirectUrlParams = new URL(redirect);
-        //   if (redirectUrlParams.origin === urlParams.origin) {
-        //     redirect = redirect.substr(urlParams.origin.length);
-        //     if (redirect.startsWith('/#')) {
-        //       redirect = redirect.substr(2);
-        //     }
-        //   } else {
-        //     window.location.href = redirect;
-        //     return;
-        //   }
-        // }
         yield put(routerRedux.replace('/index'));
       } else {
         message.error(response.message);

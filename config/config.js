@@ -45,8 +45,6 @@ if (process.env.APP_TYPE === 'site') {
     },
   ]);
 }
-console.log(process.env.NODE_ENV);
-console.log(process.env.API_ENV);
 export default {
   // add for transfer to umi
   plugins,
@@ -72,7 +70,7 @@ export default {
   },
   proxy: {
     '/api': {
-      target: '',
+      target: 'http://localhost:8080/',
       changeOrigin: true,
     },
   },
