@@ -11,6 +11,7 @@ export default class UserManage extends Component {
         3.编辑用户
         4.添加用户
         5.用户详情 弹窗
+            5-1.用户违章记录
       </div>
     )
   }
