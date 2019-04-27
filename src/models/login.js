@@ -37,22 +37,7 @@ export default {
     },
 
     *logout(_, { call, put }) {
-      // remove token in sessionStorage
-      const response = yield call(fakeLogout);
-      yield put({
-        type: 'changeLoginStatus',
-        payload: response,
-      });
-      yield put(
-        routerRedux.push({
-          pathname: '/user/login',
-          search: stringify({
-            redirect: window.location.href,
-          }),
-        })
-      );
-      token.remove();
-      reloadAuthorized();
+      yield put(routerRedux.replace('/user/login'));
     },
   },
 

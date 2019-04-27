@@ -64,11 +64,7 @@ class HeaderView extends PureComponent {
         type: 'login/logout',
       });
     }
-    if(key === 'modifylock'){
-      this.setState({
-        pwsvisible:true
-      })
-    }
+  
   };
 
 
