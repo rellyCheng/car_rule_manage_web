@@ -33,10 +33,6 @@ export default {
       }
     },
 
-    *getCaptcha({ payload }, { call }) {
-      yield call(getFakeCaptcha, payload);
-    },
-
     *logout(_, { call, put }) {
       yield put(routerRedux.replace('/user/login'));
     },
