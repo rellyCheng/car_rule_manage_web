@@ -11,21 +11,15 @@ import {
   Col,
   Card,
   DatePicker,
-  Upload,
-  Icon,
-  Divider,
   Modal
 } from "antd";
 import { connect } from "dva";
 import moment from "moment";
 const Option = Select.Option;
 const dateFormat = "YYYY-MM-DD HH:mm:ss";
-import { isEmpty } from "@/utils/utils";
-import { isArray } from "util";
-
 @Form.create()
-@connect(({ userManage }) => ({
-  userManage
+@connect(({ brokeManage }) => ({
+  brokeManage
 }))
 export default class BrokeInfoForm extends Component {
   state = {
@@ -35,40 +29,18 @@ export default class BrokeInfoForm extends Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       const { dispatch } = this.props;
-      console.log(this.props.record);
-      if (isArray(values.image)) {
-        values.image = values.image[0].response.data.key;
-      }
-      values.driverCardNumberDate = moment(values.driverCardNumberDate).format(
-        dateFormat
-      );
-      if (this.props.record) {
-        //更新
-        values.id = this.props.record.id;
-        dispatch({
-          type: "userManage/fetchEditUserInfo",
-          payload: values,
-          callback: res => {
-            this.props._this.setState({
-              openEditUserForm: false
-            });
-            this.props._this.fetchList(this.props._this.state.current);
+      dispatch({
+        type:'brokeManage/fechAddBrokenInfo',
+        payload:values,
+        callback:res=>{
+          if(res.state ==1){
+            message.success('添加成功')
+          }else{
+            message.error(res.message)
           }
-        });
-      } else {
-        //添加
-        dispatch({
-          type: "userManage/fetchAddUserInfo",
-          payload: values,
-          callback: res => {
-            this.props._this.setState({
-              openAddUserForm: false
-            });
-            this.props._this.fetchList(1);
-          }
-        });
-      }
-    });
+        }
+      })
+    })
   };
 
   render() {
@@ -83,29 +55,12 @@ export default class BrokeInfoForm extends Component {
         sm: { span: 18 }
       }
     };
-    const params = {
-      name: "file",
-      action: "/api/qiNiu/upload"
-    };
-
-    const record = this.props.record || {};
-    let imgList = [];
-    if (!isEmpty(record)) {
-      let img = {};
-      img.url = "http://file.1024sir.com/" + record.image;
-      img.uid = "1";
-      img.name = "头像";
-      img.status = "done";
-      imgList.push(img);
-    }
-
-    const fileList = this.props.fileList || imgList || undefined;
     return (
       <div>
         <Card>
           <Form onSubmit={this.handleSubmit}>
             <Row span={24}>
-              <Col span={8}>
+              <Col span={12}>
                 <Form.Item {...formItemLayout} label="违章地址">
                   {getFieldDecorator("address", {
                     // initialValue: record.name,
@@ -123,7 +78,7 @@ export default class BrokeInfoForm extends Component {
                   )}
                 </Form.Item>
               </Col>
-              <Col span={8}>
+              <Col span={12}>
                 <Form.Item label="违章日期" {...formItemLayout}>
                   {getFieldDecorator("date", {
                     //  initialValue: record.age,
@@ -144,91 +99,89 @@ export default class BrokeInfoForm extends Component {
               </Col>
             </Row>
             <Row span={24}>
-              <Col span={8}>
-                <Form.Item label="用户名" {...formItemLayout}>
-                  {getFieldDecorator("userName", {
-                    initialValue: record.userName,
+              <Col span={12}>
+                <Form.Item label="违章车牌号" {...formItemLayout}>
+                  {getFieldDecorator("cardNumber", {
+                    // initialValue: record.userName,
                     rules: [
                       {
                         required: true,
-                        message: "请输入用户名"
+                        message: "请输入违章车牌号"
                       }
                     ]
                   })(
-                    <Input placeholder="请输入用户名" style={{ width: 240 }} />
+                    <Input placeholder="请输入违章车牌号" style={{ width: 240 }} />
                   )}
                 </Form.Item>
               </Col>
-              <Col span={8}>
-                <Form.Item label="密码" {...formItemLayout}>
-                  {getFieldDecorator("password", {
-                    initialValue: record.password,
+              <Col span={12}>
+                <Form.Item label="违章罚款金额" {...formItemLayout}>
+                  {getFieldDecorator("money", {
+                    // initialValue: record.password,
                     rules: [
                       {
                         required: true,
-                        message: "请输入密碼"
+                        message: "请输入违章罚款金额"
                       }
                     ]
-                  })(<Input placeholder="请输入密码" style={{ width: 240 }} />)}
+                  })(<Input placeholder="请输入违章罚款金额" style={{ width: 240 }} />)}
                 </Form.Item>
               </Col>
             </Row>
-            <Divider orientation="left">驾驶证信息</Divider>
             <Row span={24}>
               <Col span={12}>
-                <Form.Item label="驾驶证号码">
-                  {getFieldDecorator("driverCardNumber", {
-                    initialValue: record.driverCardNumber,
+                <Form.Item label="违章类型" {...formItemLayout}>
+                  {getFieldDecorator("type", {
+                    // initialValue: record.driverCardNumber,
                     rules: [
                       {
                         required: true,
-                        message: "请输入驾驶证号码"
+                        message: "请输入违章类型"
                       }
                     ]
                   })(
-                    <Input
-                      placeholder="请输入驾驶证号码"
-                      style={{ width: 240 }}
-                    />
+                    <Select style={{ width: 240 }}>
+                      <Option value="一般违章">一般违章</Option>
+                      <Option value="严重违章">严重违章</Option>
+                    </Select>
                   )}
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item label="驾驶证有效期">
-                  {getFieldDecorator("driverCardNumberDate", {
-                    initialValue: record.driverCardNumberDate
-                      ? moment(record.driverCardNumberDate)
-                      : undefined,
+                <Form.Item label="违章等级" {...formItemLayout}>
+                  {getFieldDecorator("level", {
+                    // initialValue: record.driverCardNumberDate
+                    //   ? moment(record.driverCardNumberDate)
+                    //   : undefined,
                     rules: [
                       {
                         required: true,
-                        message: "请输入驾驶证有效期"
+                        message: "请输入违章等级"
                       }
                     ]
                   })(
-                    <DatePicker
-                      format={dateFormat}
-                      style={{ width: 240 }}
-                      placeholder="请输入驾驶证有效期"
-                    />
+                    <InputNumber  style={{ width: 240 }}/>
                   )}
                 </Form.Item>
               </Col>
             </Row>
-            <Form.Item label="备注">
-              {getFieldDecorator("remark", {
-                initialValue: record.remark
-                // rules: [{
-                // required: true, message: '备注',
-                // }]
-              })(
-                <Input.TextArea
-                  placeholder="备注"
-                  rows={4}
-                  style={{ width: "90%" }}
-                />
-              )}
-            </Form.Item>
+            <Row span={24}>
+              <Col span={12}>
+                <Form.Item label="扣除驾照的积分" {...formItemLayout}>
+                {getFieldDecorator("points", {
+                  // initialValue: record.remark
+                  rules: [{
+                  required: true, message: '请输入扣除的驾照积分',
+                  }]
+                })(
+                  <Input
+                    placeholder="请输入扣除的驾照积分"
+                    style={{ width: 240}}
+                  />
+                )}
+              </Form.Item>
+              </Col>
+            </Row>
             <div style={{ textAlign: "center" }}>
               <Button type="primary" htmlType="submit">
                 确定

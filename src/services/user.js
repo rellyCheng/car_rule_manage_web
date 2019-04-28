@@ -25,3 +25,10 @@ export async function fetchEditUserInfo(params) {
     body: params,
   });
 }
+
+export async function fechAddBrokenInfo(params) {
+  return request('', {
+    method: 'POST',
+    body: params,
+  });
+}

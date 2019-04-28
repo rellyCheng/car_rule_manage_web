@@ -1,4 +1,4 @@
-import {  } from '@/services/api';
+import {fechAddBrokenInfo} from '@/services/user';
 import {message} from 'antd';
 
 
@@ -9,8 +9,10 @@ export default {
   },
 
   effects: {
-  
-
+    *fechAddBrokenInfo({ payload,callback}, { call, put }) {
+      const response = yield call(fechAddBrokenInfo,payload);
+      callback(response)
+    }
   },
 
   reducers: {
