@@ -29,17 +29,44 @@ export default class BrokeInfoForm extends Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       const { dispatch } = this.props;
-      dispatch({
-        type:'brokeManage/fechAddBrokenInfo',
-        payload:values,
-        callback:res=>{
-          if(res.state ==1){
-            message.success('添加成功')
-          }else{
-            message.error(res.message)
+      values.date = moment(values.date).format(dateFormat)
+      const record = this.props.record;
+      if(record){
+        //修改
+        dispatch({
+          type:'brokeManage/fechUpdateBrokenInfo',
+          payload:values,
+          callback:res=>{
+            if(res.state =='OK'){
+              message.success('修改成功');
+              this.props._this.setState({
+                openEditBrokeInfo:false
+              })
+              this.props._this.fetchList(1);
+            }else{
+              message.error(res.message)
+            }
           }
-        }
-      })
+        })
+      }else{
+        //增加
+        dispatch({
+          type:'brokeManage/fechAddBrokenInfo',
+          payload:values,
+          callback:res=>{
+            if(res.state =='OK'){
+              message.success('添加成功');
+              this.props._this.setState({
+                openBrokeInfo:false
+              })
+              this.props._this.fetchList(1);
+            }else{
+              message.error(res.message)
+            }
+          }
+        })
+      }
+    
     })
   };
 
@@ -55,6 +82,8 @@ export default class BrokeInfoForm extends Component {
         sm: { span: 18 }
       }
     };
+    const record = this.props.record || {};
+    console.log(this.props.record)
     return (
       <div>
         <Card>
@@ -63,7 +92,7 @@ export default class BrokeInfoForm extends Component {
               <Col span={12}>
                 <Form.Item {...formItemLayout} label="违章地址">
                   {getFieldDecorator("address", {
-                    // initialValue: record.name,
+                    initialValue: record.address,
                     rules: [
                       {
                         required: true,
@@ -81,7 +110,7 @@ export default class BrokeInfoForm extends Component {
               <Col span={12}>
                 <Form.Item label="违章日期" {...formItemLayout}>
                   {getFieldDecorator("date", {
-                    //  initialValue: record.age,
+                    initialValue:record.date? moment(record.date):undefined,
                     rules: [
                       {
                         required: true,
@@ -102,7 +131,7 @@ export default class BrokeInfoForm extends Component {
               <Col span={12}>
                 <Form.Item label="违章车牌号" {...formItemLayout}>
                   {getFieldDecorator("cardNumber", {
-                    // initialValue: record.userName,
+                    initialValue: record.cardNumber,
                     rules: [
                       {
                         required: true,
@@ -117,7 +146,7 @@ export default class BrokeInfoForm extends Component {
               <Col span={12}>
                 <Form.Item label="违章罚款金额" {...formItemLayout}>
                   {getFieldDecorator("money", {
-                    // initialValue: record.password,
+                    initialValue: record.money,
                     rules: [
                       {
                         required: true,
@@ -132,7 +161,7 @@ export default class BrokeInfoForm extends Component {
               <Col span={12}>
                 <Form.Item label="违章类型" {...formItemLayout}>
                   {getFieldDecorator("type", {
-                    // initialValue: record.driverCardNumber,
+                    initialValue: record.type,
                     rules: [
                       {
                         required: true,
@@ -140,7 +169,7 @@ export default class BrokeInfoForm extends Component {
                       }
                     ]
                   })(
-                    <Select style={{ width: 240 }}>
+                    <Select style={{ width: 240 }} placeholder="请选择违章类型">
                       <Option value="一般违章">一般违章</Option>
                       <Option value="严重违章">严重违章</Option>
                     </Select>
@@ -150,9 +179,7 @@ export default class BrokeInfoForm extends Component {
               <Col span={12}>
                 <Form.Item label="违章等级" {...formItemLayout}>
                   {getFieldDecorator("level", {
-                    // initialValue: record.driverCardNumberDate
-                    //   ? moment(record.driverCardNumberDate)
-                    //   : undefined,
+                    initialValue: record.level,
                     rules: [
                       {
                         required: true,
@@ -160,7 +187,7 @@ export default class BrokeInfoForm extends Component {
                       }
                     ]
                   })(
-                    <InputNumber  style={{ width: 240 }}/>
+                    <InputNumber  style={{ width: 240 }} placeholder="请选择违章等级"/>
                   )}
                 </Form.Item>
               </Col>
@@ -169,7 +196,7 @@ export default class BrokeInfoForm extends Component {
               <Col span={12}>
                 <Form.Item label="扣除驾照的积分" {...formItemLayout}>
                 {getFieldDecorator("points", {
-                  // initialValue: record.remark
+                  initialValue: record.points,
                   rules: [{
                   required: true, message: '请输入扣除的驾照积分',
                   }]

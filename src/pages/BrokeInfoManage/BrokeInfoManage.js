@@ -3,29 +3,49 @@ import PageHeaderWrapper from "@/components/PageHeaderWrapper";
 import {Table,Card,Divider,Popconfirm, message,Button, Modal, Form} from 'antd';
 import BrokeInfoForm from "./BrokeInfoForm"
 import { connect } from 'dva';
-@connect(({userManage}) => ({
-  userManage
+@connect(({brokeManage}) => ({
+  brokeManage
 }))
 export default class UserManage extends Component {
   // #TODO 1.违章列表 2.违章详情 弹窗 3.处理违章 点击处理 弹出选择用户页面 4.删除违章 5.修改违章
   state={
     openBrokeInfo:false,
+    openEditBrokeInfo:false,
     filterVal:{}
   }
   componentDidMount(){
-    // this.fetchList();
+    this.fetchList();
   }
-  // fetchList=()=>{
-  //   const {dispatch} = this.props;
-  //   dispatch({
-  //     type:'',
-  //     payload:values
-  //   })
-  // }
+  fetchList=(current =1)=>{
+    const {dispatch} = this.props;
+    dispatch({
+      type:'brokeManage/fetchBrokeList',
+      payload:{
+        current:current,
+        size:2
+      }
+    })
+  }
+  editorBrokeInfo=(record)=>{
+    this.setState({
+      openEditBrokeInfo:true,
+      record
+    })
+  }
   addBrokeInfo=()=>{
     this.setState({
       openBrokeInfo:true
     })
+  }
+  handleDelBrokeInfo=(record)=>{
+    const {dispatch} = this.props;
+    dispatch({
+      type:'brokeManage/fetchDelBrokeInfo',
+      payload:{
+        brokeInfoId:record.id
+      }
+    })
+    this.fetchList();
   }
   render() {
     const columns = [{
@@ -61,17 +81,18 @@ export default class UserManage extends Component {
       key:'actiion',
       render: (text, record) => (
         <span>
-          <a href="javascript:;" onClick={()=> this.editorUserInfo(record)}>编辑</a>
+           <a href="javascript:;" onClick={()=> this.editorBrokeInfo(record)}>编辑</a>
+           <Divider type="vertical" />
+           <a href="javascript:;" onClick={()=> this.dealBrokeInfo(record)}>处理违章</a>
             <Divider type="vertical" />
-            <Popconfirm title="确认删除？" okText="确定" cancelText="取消"  onConfirm={() => this.handleDelUserInfo(record)}>
+            <Popconfirm title="确认删除？" okText="确定" cancelText="取消"  onConfirm={() => this.handleDelBrokeInfo(record)}>
               <a href="javascript:;">删除</a>
             </Popconfirm>
           </span>  
       ),
     }];
-    // const {userManage,userListloading} = this.props;
-    // console.log(userManage)
-     
+    const {brokeManage} = this.props;
+    console.log(brokeManage.brokeList.pageData)
     return (
       <div>
         <PageHeaderWrapper>
@@ -81,20 +102,22 @@ export default class UserManage extends Component {
               <Button type="primary" onClick={this.addBrokeInfo}>添加违章</Button>
             </Card>
             <Table 
-            // dataSource={} 
+            dataSource={brokeManage.brokeList.pageData} 
             columns={columns} 
             rowKey="id"
             // loading={userListloading}
-            // pagination={{
-            //   current: userManage.userInfo.pageCurrent,
-            //   pageSize: userManage.userInfo.pageSize,
-            //   total: userManage.userInfo.rowCount,
-            //   showTotal: () => {
-            //     return `共${userManage.userInfo.rowCount}条`;
-            //   },
-            //   showQuickJumper: true,
-             
-            // }}
+            pagination={{
+              current: brokeManage.brokeList.pageCurrent,
+              pageSize: brokeManage.brokeList.pageSize,
+              total: brokeManage.brokeList.rowCount,
+              showTotal: () => {
+                return `共${brokeManage.brokeList.rowCount}条`;
+              },
+              showQuickJumper: true,
+              onChange: current => {
+                this.fetchList(current);
+              }
+            }}
             />
           </Card>
         </PageHeaderWrapper>
@@ -113,21 +136,21 @@ export default class UserManage extends Component {
         >
          <BrokeInfoForm _this={this}/>
         </Modal>
-{/* 
+
         <Modal
-          title="编辑用户"
-          visible={this.state.openEditUserForm}
+          title="编辑违章信息"
+          visible={this.state.openEditBrokeInfo}
           onCancel={()=>{
             this.setState({
-              openEditUserForm:false
+              openEditBrokeInfo:false
             })
           }}
           width={1000}
           footer={null}
           destroyOnClose={true}
         >
-         <UserInfoForm _this={this} record={this.state.record}/>
-        </Modal>  */}
+         <BrokeInfoForm _this={this} record={this.state.record}/>
+        </Modal>
       </div>
     );
   }

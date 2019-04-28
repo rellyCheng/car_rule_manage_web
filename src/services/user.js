@@ -27,8 +27,28 @@ export async function fetchEditUserInfo(params) {
 }
 
 export async function fechAddBrokenInfo(params) {
-  return request('', {
+  return request('/api/brokeInfo/add', {
     method: 'POST',
     body: params,
+  });
+}
+
+export async function fetchBrokeList(params) {
+  return request('/api/brokeInfo/list', {
+    method: 'POST',
+    body: params,
+  });
+}
+
+export async function fechUpdateBrokenInfo(params) {
+  return request('/api/brokeInfo/update', {
+    method: 'POST',
+    body: params,
+  });
+}
+
+export async function fetchDelBrokeInfo(params) {
+  return request(`/api/brokeInfo/del?brokeInfoId=${params.brokeInfoId}`, {
+    method: 'POST',
   });
 }
