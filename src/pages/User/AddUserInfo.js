@@ -18,13 +18,30 @@ export default class AddUserInfo extends Component {
   }
   handleChange = ({ fileList }) => this.setState({ fileList })
 
+  componentDidMount(){
+    const record = this.props.record || {};
+    let imgList = [];
+    if( !isEmpty(record)){
+      let img = {};
+      img.url = 'http://file.1024sir.com/'+record.image;
+      img.uid = '1';
+      img.name= '头像';
+      img.status= 'done';
+      imgList.push(img)
+      this.setState({
+        fileList:imgList
+      })
+    }
+  }
+
+
   handleSubmit = (e) => {
     e.preventDefault();
       this.props.form.validateFieldsAndScroll((err, values) => {
         const {dispatch} = this.props;
         console.log(this.props.record)
-        if(isArray(values.image)){
-          values.image = values.image[0].response.data.key
+        if(isArray(values.image.fileList)){
+          values.image = values.image.fileList[0].response.data.key
         }
         values.driverCardNumberDate = moment(values.driverCardNumberDate).format(dateFormat)
         if(this.props.record){
@@ -76,18 +93,11 @@ export default class AddUserInfo extends Component {
 
     
     const record = this.props.record || {};
-    let imgList = [];
-    if( !isEmpty(record)){
-      let img = {};
-      img.url = 'http://file.1024sir.com/'+record.image;
-      img.uid = '1';
-      img.name= '头像';
-      img.status= 'done';
-      imgList.push(img)
-    }
+   
 
-    const fileList = this.state.fileList || imgList || undefined
-    console.log(this.state.fileList)
+    let fileList = this.state.fileList;
+    console.log(fileList)
+
     return (
       <div>
           <Card>

@@ -8,9 +8,8 @@ export async function fetchUserInfo(params) {
 }
 
 export async function fetchDelUserInfo(params) {
-  return request('/api/user/del', {
+  return request(`/api/user/del?userId=${params}`, {
     method: 'POST',
-    body: params,
   });
 }
 
