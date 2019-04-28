@@ -81,6 +81,18 @@ models: () => [
         "exact": true
       },
       {
+        "path": "/userManage/addUserInfo",
+        "component": _dvaDynamic({
+  app: window.g_app,
+models: () => [
+  import('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/pages/User/models/userManage.js').then(m => { return { namespace: 'userManage',...m.default}})
+],
+  component: () => import('../User/AddUserInfo'),
+  LoadingComponent: require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/components/PageLoading/index').default,
+}),
+        "exact": true
+      },
+      {
         "path": "/brokeManage",
         "name": "brokeManage",
         "icon": "user",

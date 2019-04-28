@@ -123,6 +123,7 @@ export default function request(url, option) {
     .then(checkStatus)
     .then(response => cachedSave(response, hashcode))
     .then(response => {
+      console.log(response)
       // DELETE and 204 do not return data by default
       // using .json will report an error.
       if (newOptions.method === 'DELETE' || response.status === 204) {
@@ -130,16 +131,16 @@ export default function request(url, option) {
       }
       return response.json();
     })
-    .catch(e => {
-      const status = e.name;
-      if (status === 401) {
-        // @HACK
-        /* eslint-disable no-underscore-dangle */
-        window.g_app._store.dispatch({
-          type: 'login/logout',
-        });
-        return;
-      }
+    // .catch(e => {
+    //   const status = e.name;
+    //   if (status === 401) {
+    //     // @HACK
+    //     /* eslint-disable no-underscore-dangle */
+    //     window.g_app._store.dispatch({
+    //       type: 'login/logout',
+    //     });
+    //     return;
+    //   }
 
-    });
+    // });
 }

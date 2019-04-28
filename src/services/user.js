@@ -20,3 +20,9 @@ export async function fetchAddUserInfo(params) {
     body: params,
   });
 }
+export async function fetchEditUserInfo(params) {
+  return request('/api/user/update', {
+    method: 'POST',
+    body: params,
+  });
+}

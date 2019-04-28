@@ -249,7 +249,6 @@ class BasicLayout extends React.PureComponent {
     const { isMobile, menuData } = this.state;
     const isTop = PropsLayout === 'topmenu';
     const routerConfig = this.matchParamsPath(pathname);
-    console.log(isMobile)
     const layout = (
       <Layout>
         {isTop && !isMobile ? null : (

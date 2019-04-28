@@ -1,27 +1,33 @@
 import React, { Component } from "react";
 import PageHeaderWrapper from "@/components/PageHeaderWrapper";
-import {Table,Card,Divider,Popconfirm, message,Button} from 'antd';
+import {Table,Card,Divider,Popconfirm, message,Button, Modal, Form} from 'antd';
 import { connect } from 'dva';
 import router from 'umi/router';
-@connect(({userManage}) => ({
+import UserInfoForm  from './AddUserInfo';
+import UserListFilter from './UserListFilter'
+@connect(({userManage,loading}) => ({
   userManage,
+  userListloading:loading.effects['userManage/fetchUserInfo'],
 }))
 export default class UserManage extends Component {
+
+  state={
+
+  }
   componentDidMount(){
-    const {dispatch} = this.props;
+    this.fetchList();
+  }
+
+  fetchList=(current = 1,values = {})=>{
+    const { dispatch } = this.props;
+    values.current = current;
+    values.size = 2;
     dispatch({
       type:'userManage/fetchUserInfo',
-      payload:{
-        current:1,
-        size:10
-      },
-      callback:res=>{
-        if(res.state ==1){
-          message.success('删除成功')
-        }else{
-          message.error(res.message)
-        }
-      }
+      payload:values
+    })
+    this.setState({
+      current
     })
   }
   handleDelUserInfo=(record)=>{
@@ -32,10 +38,15 @@ export default class UserManage extends Component {
     })
   }
   addUserInfo=()=>{
-    router.push('/userManage/addUserInfo')
+    this.setState({
+      openAddUserForm:true
+    })
   }
   editorUserInfo=(record)=>{
-    router.push('/userManage/addUserInfo')  
+    this.setState({
+      openEditUserForm:true,
+      record
+    })
   }
   render() {
     // 用户管理页面/只有拥有admin权限的才可以看到
@@ -76,19 +87,68 @@ export default class UserManage extends Component {
           </span>  
       ),
     }];
-    const {userManage} = this.props
-    console.log(userManage.userInfo.pageData)
+    const {userManage,userListloading} = this.props;
+    console.log(userManage)
+     
     return (
       <div>
         <PageHeaderWrapper>
           <Card>
-           <Button type="primary" onClick={this.addUserInfo}>添加用户</Button>
+            <Card>
+              <UserListFilter _fetchList = {this.fetchList}/>
+              <Button type="primary" onClick={this.addUserInfo}>添加用户</Button>
+            </Card>
+         
             <Table 
             dataSource={userManage.userInfo.pageData} 
             columns={columns} 
-            rowKey="id"/>
+            rowKey="id"
+            loading={userListloading}
+            pagination={{
+              current: userManage.userInfo.pageCurrent,
+              pageSize: userManage.userInfo.pageSize,
+              total: userManage.userInfo.rowCount,
+              showTotal: () => {
+                return `共${userManage.userInfo.rowCount}条`;
+              },
+              showQuickJumper: true,
+              onChange: current => {
+                this.fetchList(current);
+              },
+            }}
+            />
           </Card>
         </PageHeaderWrapper>
+
+        <Modal
+          title="添加用户"
+          visible={this.state.openAddUserForm}
+          onCancel={()=>{
+            this.setState({
+              openAddUserForm:false
+            })
+          }}
+          width={1000}
+          footer={null}
+          destroyOnClose={true}
+        >
+         <UserInfoForm _this={this}/>
+        </Modal>
+
+        <Modal
+          title="编辑用户"
+          visible={this.state.openEditUserForm}
+          onCancel={()=>{
+            this.setState({
+              openEditUserForm:false
+            })
+          }}
+          width={1000}
+          footer={null}
+          destroyOnClose={true}
+        >
+         <UserInfoForm _this={this} record={this.state.record}/>
+        </Modal>
       </div>
     );
   }
