@@ -44,7 +44,10 @@ export default [
           authority: ['admin'],
           component: './User/UserManage',
       },
-
+      {
+        path: '/userManage/addUserInfo',
+        component: './User/AddUserInfo',
+      },
             //违章管理页面/只有拥有admin权限的才可以看到
       {
           path: '/brokeManage',
