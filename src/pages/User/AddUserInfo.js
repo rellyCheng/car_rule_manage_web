@@ -16,7 +16,7 @@ export default class AddUserInfo extends Component {
   state={
     fileList:[]
   }
-
+  handleChange = ({ fileList }) => this.setState({ fileList })
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -86,7 +86,8 @@ export default class AddUserInfo extends Component {
       imgList.push(img)
     }
 
-    const fileList = this.props.fileList || imgList || undefined
+    const fileList = this.state.fileList || imgList || undefined
+    console.log(this.state.fileList)
     return (
       <div>
           <Card>
@@ -99,7 +100,7 @@ export default class AddUserInfo extends Component {
                       rules: [{required:true, message: '请上传头像'}],
                   })(
                     <Upload 
-                      onChange={(file)=>this.fetchFileUpload(file)}
+                      onChange={this.handleChange}
                       listType="picture-card"
                       fileList={fileList}
                       {...params}>
