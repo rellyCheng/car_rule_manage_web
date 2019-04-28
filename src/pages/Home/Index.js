@@ -4,7 +4,7 @@ export default class Index extends Component {
   render() {
     return (
         <div>
-          首页
+          首页1
         </div>
     )
   }
