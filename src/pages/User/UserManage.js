@@ -12,13 +12,13 @@ import UserListFilter from './UserListFilter'
 export default class UserManage extends Component {
 
   state={
-
+    filterVal:{}
   }
   componentDidMount(){
     this.fetchList();
   }
 
-  fetchList=(current = 1,values = {})=>{
+  fetchList=(current = 1,values = this.state.filterVal)=>{
     const { dispatch } = this.props;
     values.current = current;
     values.size = 2;
@@ -27,7 +27,7 @@ export default class UserManage extends Component {
       payload:values
     })
     this.setState({
-      current
+      filterVal:values
     })
   }
   handleDelUserInfo=(record)=>{
