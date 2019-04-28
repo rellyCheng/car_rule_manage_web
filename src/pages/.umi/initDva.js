@@ -14,7 +14,7 @@ app.use(createLoading());
   app.use(plugin);
 });
 
-app.model({ namespace: 'global', ...(require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/models/global.js').default) });
-app.model({ namespace: 'login', ...(require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/models/login.js').default) });
-app.model({ namespace: 'setting', ...(require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/models/setting.js').default) });
-app.model({ namespace: 'user', ...(require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/models/user.js').default) });
+app.model({ namespace: 'global', ...(require('E:/workSpace/car_rule_manage_web/src/models/global.js').default) });
+app.model({ namespace: 'login', ...(require('E:/workSpace/car_rule_manage_web/src/models/login.js').default) });
+app.model({ namespace: 'setting', ...(require('E:/workSpace/car_rule_manage_web/src/models/setting.js').default) });
+app.model({ namespace: 'user', ...(require('E:/workSpace/car_rule_manage_web/src/models/user.js').default) });

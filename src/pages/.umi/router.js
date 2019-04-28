@@ -2,7 +2,7 @@ import React from 'react';
 import { Router as DefaultRouter, Route, Switch } from 'react-router-dom';
 import dynamic from 'umi/dynamic';
 import renderRoutes from 'umi/_renderRoutes';
-import RendererWrapper0 from 'C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/pages/.umi/LocaleWrapper.jsx'
+import RendererWrapper0 from 'E:/workSpace/car_rule_manage_web/src/pages/.umi/LocaleWrapper.jsx'
 import _dvaDynamic from 'dva/dynamic'
 
 let Router = require('dva/router').routerRedux.ConnectedRouter;
@@ -13,7 +13,7 @@ let routes = [
     "component": _dvaDynamic({
   
   component: () => import('../../layouts/UserLayout'),
-  LoadingComponent: require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/components/PageLoading/index').default,
+  LoadingComponent: require('E:/workSpace/car_rule_manage_web/src/components/PageLoading/index').default,
 }),
     "routes": [
       {
@@ -26,15 +26,15 @@ let routes = [
         "component": _dvaDynamic({
   app: window.g_app,
 models: () => [
-  import('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/pages/User/models/userManage.js').then(m => { return { namespace: 'userManage',...m.default}})
+  import('E:/workSpace/car_rule_manage_web/src/pages/User/models/userManage.js').then(m => { return { namespace: 'userManage',...m.default}})
 ],
   component: () => import('../User/Login'),
-  LoadingComponent: require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/components/PageLoading/index').default,
+  LoadingComponent: require('E:/workSpace/car_rule_manage_web/src/components/PageLoading/index').default,
 }),
         "exact": true
       },
       {
-        "component": () => React.createElement(require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+        "component": () => React.createElement(require('E:/workSpace/car_rule_manage_web/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
       }
     ]
   },
@@ -43,7 +43,7 @@ models: () => [
     "component": _dvaDynamic({
   
   component: () => import('../../layouts/BasicLayout'),
-  LoadingComponent: require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/components/PageLoading/index').default,
+  LoadingComponent: require('E:/workSpace/car_rule_manage_web/src/components/PageLoading/index').default,
 }),
     "Routes": [require('../Authorized').default],
     "routes": [
@@ -59,7 +59,7 @@ models: () => [
         "component": _dvaDynamic({
   
   component: () => import('../Home/Index'),
-  LoadingComponent: require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/components/PageLoading/index').default,
+  LoadingComponent: require('E:/workSpace/car_rule_manage_web/src/components/PageLoading/index').default,
 }),
         "exact": true
       },
@@ -73,10 +73,10 @@ models: () => [
         "component": _dvaDynamic({
   app: window.g_app,
 models: () => [
-  import('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/pages/User/models/userManage.js').then(m => { return { namespace: 'userManage',...m.default}})
+  import('E:/workSpace/car_rule_manage_web/src/pages/User/models/userManage.js').then(m => { return { namespace: 'userManage',...m.default}})
 ],
   component: () => import('../User/UserManage'),
-  LoadingComponent: require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/components/PageLoading/index').default,
+  LoadingComponent: require('E:/workSpace/car_rule_manage_web/src/components/PageLoading/index').default,
 }),
         "exact": true
       },
@@ -85,10 +85,10 @@ models: () => [
         "component": _dvaDynamic({
   app: window.g_app,
 models: () => [
-  import('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/pages/User/models/userManage.js').then(m => { return { namespace: 'userManage',...m.default}})
+  import('E:/workSpace/car_rule_manage_web/src/pages/User/models/userManage.js').then(m => { return { namespace: 'userManage',...m.default}})
 ],
   component: () => import('../User/AddUserInfo'),
-  LoadingComponent: require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/components/PageLoading/index').default,
+  LoadingComponent: require('E:/workSpace/car_rule_manage_web/src/components/PageLoading/index').default,
 }),
         "exact": true
       },
@@ -102,10 +102,10 @@ models: () => [
         "component": _dvaDynamic({
   app: window.g_app,
 models: () => [
-  import('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/pages/BrokeInfoManage/models/brokeManage.js').then(m => { return { namespace: 'brokeManage',...m.default}})
+  import('E:/workSpace/car_rule_manage_web/src/pages/BrokeInfoManage/models/brokeManage.js').then(m => { return { namespace: 'brokeManage',...m.default}})
 ],
   component: () => import('../BrokeInfoManage/BrokeInfoManage'),
-  LoadingComponent: require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/components/PageLoading/index').default,
+  LoadingComponent: require('E:/workSpace/car_rule_manage_web/src/components/PageLoading/index').default,
 }),
         "exact": true
       },
@@ -116,10 +116,10 @@ models: () => [
         "component": _dvaDynamic({
   app: window.g_app,
 models: () => [
-  import('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/pages/BrokeInfoManage/models/brokeManage.js').then(m => { return { namespace: 'brokeManage',...m.default}})
+  import('E:/workSpace/car_rule_manage_web/src/pages/BrokeInfoManage/models/brokeManage.js').then(m => { return { namespace: 'brokeManage',...m.default}})
 ],
   component: () => import('../BrokeInfoManage/MyBrokeInfoManage'),
-  LoadingComponent: require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/components/PageLoading/index').default,
+  LoadingComponent: require('E:/workSpace/car_rule_manage_web/src/components/PageLoading/index').default,
 }),
         "exact": true
       },
@@ -127,17 +127,17 @@ models: () => [
         "component": _dvaDynamic({
   
   component: () => import('../404'),
-  LoadingComponent: require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/src/components/PageLoading/index').default,
+  LoadingComponent: require('E:/workSpace/car_rule_manage_web/src/components/PageLoading/index').default,
 }),
         "exact": true
       },
       {
-        "component": () => React.createElement(require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+        "component": () => React.createElement(require('E:/workSpace/car_rule_manage_web/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
       }
     ]
   },
   {
-    "component": () => React.createElement(require('C:/Users/winshe03/Desktop/car_rule_manage_api/car_web/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+    "component": () => React.createElement(require('E:/workSpace/car_rule_manage_web/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
   }
 ];
 window.g_routes = routes;
