@@ -1,4 +1,10 @@
-import {fechAddBrokenInfo,fetchBrokeList,fechUpdateBrokenInfo,fetchDelBrokeInfo} from '@/services/user';
+import {fechAddBrokenInfo,
+    fetchBrokeList,
+    fechUpdateBrokenInfo,
+    fetchDelBrokeInfo,
+    fetchBrokeUser,
+    fetchDeal
+  } from '@/services/user';
 import {message} from 'antd';
 
 
@@ -6,7 +12,8 @@ export default {
   namespace: 'brokeManage',
 
   state: {
-    brokeList:{}
+    brokeList:{},
+    brokeUser:[]
   },
 
   effects: {
@@ -33,6 +40,17 @@ export default {
         message.error(response.message)
       }
     },
+    *fetchBrokeUser({payload},{call,put}){
+      const response = yield call(fetchBrokeUser,payload);
+      yield put({
+        type:'saveBrokeUser',
+        payload:response.data,
+      })
+    },
+    *fetchDeal({payload,callback},{call}){
+      const response = yield call (fetchDeal,payload);
+      callback(response)
+    }
   },
 
   reducers: {
@@ -42,5 +60,11 @@ export default {
         brokeList:payload
       }
     },
+    saveBrokeUser(state,{payload}){
+      return {
+        ...state,
+        brokeUser:payload
+      }
+    }
   },
 };

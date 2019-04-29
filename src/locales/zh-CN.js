@@ -75,6 +75,7 @@ export default {
   "menu.userManage": "用户管理",
   "menu.brokeManage": "违章管理",
   "menu.myBrokeManage": "我的违章管理",
+  "menu.carManage": "车辆管理",
   "menu.dashboard": "Dashboard",
   "menu.dashboard.analysis": "分析页",
   "menu.dashboard.monitor": "监控页",

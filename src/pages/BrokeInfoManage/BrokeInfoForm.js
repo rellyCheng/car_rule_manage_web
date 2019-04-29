@@ -42,7 +42,7 @@ export default class BrokeInfoForm extends Component {
               this.props._this.setState({
                 openEditBrokeInfo:false
               })
-              this.props._this.fetchList(1);
+              this.props._this.fetchList();
             }else{
               message.error(res.message)
             }
@@ -59,7 +59,7 @@ export default class BrokeInfoForm extends Component {
               this.props._this.setState({
                 openBrokeInfo:false
               })
-              this.props._this.fetchList(1);
+              this.props._this.fetchList();
             }else{
               message.error(res.message)
             }

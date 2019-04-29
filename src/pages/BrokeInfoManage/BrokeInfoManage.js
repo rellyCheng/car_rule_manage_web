@@ -2,33 +2,47 @@ import React, { Component } from "react";
 import PageHeaderWrapper from "@/components/PageHeaderWrapper";
 import {Table,Card,Divider,Popconfirm, message,Button, Modal, Form} from 'antd';
 import BrokeInfoForm from "./BrokeInfoForm"
+import BrokenInfoFilter from './BrokeInfoFilter'
+import DealBroke from './DealBroken'
 import { connect } from 'dva';
-@connect(({brokeManage}) => ({
-  brokeManage
+@connect(({brokeManage,loading}) => ({
+  brokeManage,
+  brokeListLoading:loading.effects['brokeManage/fetchBrokeList']
 }))
 export default class UserManage extends Component {
   // #TODO 1.违章列表 2.违章详情 弹窗 3.处理违章 点击处理 弹出选择用户页面 4.删除违章 5.修改违章
   state={
     openBrokeInfo:false,
     openEditBrokeInfo:false,
-    filterVal:{}
+    current:1,
+    filterVal:{},
+    openDealBroke:false
   }
   componentDidMount(){
     this.fetchList();
   }
-  fetchList=(current =1)=>{
+  fetchList=(current = this.state.current,values = this.state.filterVal)=>{
     const {dispatch} = this.props;
+    values.current = current;
+    values.size = 10
     dispatch({
       type:'brokeManage/fetchBrokeList',
-      payload:{
-        current:current,
-        size:2
-      }
+      payload:values
+    })
+    this.setState({
+      current,
+      filterVal:values
     })
   }
   editorBrokeInfo=(record)=>{
     this.setState({
       openEditBrokeInfo:true,
+      record
+    })
+  }
+  dealBrokeInfo=(record)=>{
+    this.setState({
+      openDealBroke:true,
       record
     })
   }
@@ -91,21 +105,21 @@ export default class UserManage extends Component {
           </span>  
       ),
     }];
-    const {brokeManage} = this.props;
+    const {brokeManage,brokeListLoading} = this.props;
     console.log(brokeManage.brokeList.pageData)
     return (
       <div>
         <PageHeaderWrapper>
           <Card>
             <Card>
-              {/* <UserListFilter _fetchList = {this.fetchList}/> */}
+              <BrokenInfoFilter _fetchList = {this.fetchList}/>
               <Button type="primary" onClick={this.addBrokeInfo}>添加违章</Button>
             </Card>
             <Table 
             dataSource={brokeManage.brokeList.pageData} 
             columns={columns} 
             rowKey="id"
-            // loading={userListloading}
+            loading={brokeListLoading}
             pagination={{
               current: brokeManage.brokeList.pageCurrent,
               pageSize: brokeManage.brokeList.pageSize,
@@ -150,6 +164,19 @@ export default class UserManage extends Component {
           destroyOnClose={true}
         >
          <BrokeInfoForm _this={this} record={this.state.record}/>
+        </Modal>
+        <Modal
+          title="处理用户违章"
+          visible={this.state.openDealBroke}
+          onCancel={()=>{
+            this.setState({
+              openDealBroke:false
+            })
+          }}
+          destroyOnClose={true}
+          footer={false}
+        >
+         <DealBroke _this={this} record={this.state.record}/>
         </Modal>
       </div>
     );

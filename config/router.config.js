@@ -64,7 +64,12 @@ export default [
           icon: 'user',
           component: './BrokeInfoManage/MyBrokeInfoManage',
       },
-
+      {
+        path: '/carManage',
+        name: 'carManage',
+        icon: 'user',
+        component: './CarManage/CarManage',
+       },
 
       {
         component: '404',

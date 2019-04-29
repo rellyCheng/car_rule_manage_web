@@ -26,6 +26,7 @@ export default {
         });
         sessionStorage.setItem('name', response.data.name);
         sessionStorage.setItem('userImg', response.data.image);
+        sessionStorage.setItem('userId', response.data.id);
         reloadAuthorized();
         yield put(routerRedux.replace('/index'));
       } else {
