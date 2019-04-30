@@ -42,7 +42,7 @@ export default class BrokeInfoForm extends Component {
       record.imgList.map((item,index)=>{
         let img = {};
         img.url = "http://file.1024sir.com/" + item;
-        img.uid = index;
+        img.uid = item;
         img.name = "图片";
         img.status = "done";
         imgList.push(img);
@@ -57,26 +57,26 @@ export default class BrokeInfoForm extends Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err){
+        console.log(values.imgList)
         console.log(values)
         const { dispatch } = this.props;
         const record = this.props.record;
         let key = "";
         let key1 = [];
-        if (values.imgList) {
+        // if (values.imgList) {
           console.log(this.state.fileList)
           this.state.fileList.map(item=>{
             if(item.response){
               key = item.response.data.key;
               key1.push(key)
+            }else{
+              key1.push(item.uid)
             }
           })
           if(record){
             values.id = record.id;
-            record.imgList.map(item=>{
-              key1.push(item)
-            })
           }
-        }
+        // }
         values.imgList = key1;
         values.date = moment(values.date).format(dateFormat);
         if(!isEmpty(record)){
