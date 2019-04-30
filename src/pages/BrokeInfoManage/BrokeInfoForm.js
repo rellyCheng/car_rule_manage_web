@@ -29,20 +29,24 @@ export default class BrokeInfoForm extends Component {
     fileList: []
   };
   handleChange = ({ fileList }) => {
+    console.log(fileList)
     this.setState({
       fileList
     });
   };
   componentDidMount() {
-    const record = this.props.record || {};
+    const {record} = this.props;
     let imgList = [];
+    console.log(record)
     if (!isEmpty(record)) {
-      let img = {};
-      img.url = "http://file.1024sir.com/" + record.imgList;
-      img.uid = "1";
-      img.name = "图片";
-      img.status = "done";
-      imgList.push(img);
+      record.imgList.map((item,index)=>{
+        let img = {};
+        img.url = "http://file.1024sir.com/" + item;
+        img.uid = index;
+        img.name = "图片";
+        img.status = "done";
+        imgList.push(img);
+      })
       this.setState({
         fileList: imgList
       });
@@ -52,18 +56,34 @@ export default class BrokeInfoForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
+      console.log(values)
       const { dispatch } = this.props;
+      const record = this.props.record;
       let key = "";
       let key1 = [];
       if (values.imgList) {
-        this.state.fileList.map(item => {
-          (key = item.response.data.key), key1.push(key);
-        });
+        console.log(this.state.fileList)
+        this.state.fileList.map(item=>{
+          if(item.response){
+            key = item.response.data.key;
+            key1.push(key)
+          }
+        })
+        if(record.imgList){
+          // key1.push(record.imgList)
+          record.imgList.map(item=>{
+            key1.push(item)
+          })
+        }
+        // this.state.fileList.map(item => {
+        //   key = item.response.data.key;
+        //   key1.push(key);
+        // });
       }
       values.imgList = key1;
-      values.date = moment(values.date).format(dateFormat)
-      const record = this.props.record;
-      if(record){
+      values.date = moment(values.date).format(dateFormat);
+      values.id = record.id;
+      if(!isEmpty(record)){
         //修改
         dispatch({
           type:'brokeManage/fechUpdateBrokenInfo',
