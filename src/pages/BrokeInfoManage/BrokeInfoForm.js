@@ -11,12 +11,15 @@ import {
   Col,
   Card,
   DatePicker,
-  Modal
+  Modal,
+  Upload ,
+  Icon
 } from "antd";
 import { connect } from "dva";
 import moment from "moment";
 const Option = Select.Option;
 const dateFormat = "YYYY-MM-DD HH:mm:ss";
+import {isEmpty} from "@/utils/utils"
 @Form.create()
 @connect(({ brokeManage }) => ({
   brokeManage
@@ -25,10 +28,39 @@ export default class BrokeInfoForm extends Component {
   state = {
     fileList: []
   };
+  handleChange = ({ fileList }) => {
+    this.setState({
+      fileList
+    });
+  };
+  componentDidMount() {
+    const record = this.props.record || {};
+    let imgList = [];
+    if (!isEmpty(record)) {
+      let img = {};
+      img.url = "http://file.1024sir.com/" + record.imgList;
+      img.uid = "1";
+      img.name = "图片";
+      img.status = "done";
+      imgList.push(img);
+      this.setState({
+        fileList: imgList
+      });
+    }
+  }
+  
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       const { dispatch } = this.props;
+      let key = "";
+      let key1 = [];
+      if (values.imgList) {
+        this.state.fileList.map(item => {
+          (key = item.response.data.key), key1.push(key);
+        });
+      }
+      values.imgList = key1;
       values.date = moment(values.date).format(dateFormat)
       const record = this.props.record;
       if(record){
@@ -82,12 +114,44 @@ export default class BrokeInfoForm extends Component {
         sm: { span: 18 }
       }
     };
+    const props = {
+      name: "file",
+      action: "/api/qiNiu/upload"
+    };
     const record = this.props.record || {};
+    const {fileList} = this.state
     console.log(this.props.record)
     return (
       <div>
         <Card>
           <Form onSubmit={this.handleSubmit}>
+           <Row span={24}>
+           <div style={{ marginLeft: "120px" }}>
+              {getFieldDecorator("imgList", {
+                initialValue: record.imgList,
+                rules: [
+                  {
+                    required: true,
+                    message: "请上传违章图"
+                  }
+                ]
+              })(
+                <Upload
+                  {...props}
+                  listType="picture-card"
+                  fileList={fileList}
+                  onChange={this.handleChange}
+                >
+                  {fileList.length >= 6 ? null : (
+                    <div>
+                      <Icon type="plus" />
+                      <div className="ant-upload-text">Upload</div>
+                    </div>
+                  )}
+                </Upload>
+              )}
+            </div>
+           </Row>
             <Row span={24}>
               <Col span={12}>
                 <Form.Item {...formItemLayout} label="违章地址">

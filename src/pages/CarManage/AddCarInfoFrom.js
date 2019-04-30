@@ -62,13 +62,13 @@ export default class AddCarInfoFrom extends Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       const { dispatch } = this.props;
       let key1=[]
-      if(values.imageList){
+      if(values.imgList){
         let key=''
         this.state.fileList.map(item=>{
           key = item.response.data.key,
           key1.push(key)
         })
-        values.imageList=key1
+        values.imgList=key1
       }
       values.buyDate = moment(values.buyDate).format(dateFormat)
       values.userId = values.userId.key
@@ -141,7 +141,7 @@ export default class AddCarInfoFrom extends Component {
           <div style={{marginLeft:'110px'}}>
             <Form.Item
               >  
-              {getFieldDecorator('imageList', {  
+              {getFieldDecorator('imgList', {  
                   // initialValue: record.image,
                   rules: [{required:true, message: '请上传图片'}],
               })(

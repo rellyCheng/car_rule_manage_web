@@ -3,6 +3,7 @@ import PageHeaderWrapper from '@/components/PageHeaderWrapper'
 import AddCarInfoFrom from './AddCarInfoFrom'
 import AddRepairFrom from './AddRepairFrom'
 import LookRepairInfo from './LookRepairInfo'
+import CarDetailInfo from'./CarDetailInfo'
 import {connect} from 'dva'
 import {Card, Table,Button,Divider,Modal,Popconfirm, message} from 'antd'
 
@@ -14,7 +15,8 @@ export default class CarManage extends Component {
     openAddCarInfo:false,
     current:1,
     openAddRepairInfo:false,
-    openLookRepairInfo:false
+    openLookRepairInfo:false,
+    openCarDetailInfo:false
   }
   componentDidMount(){
     this.fetchList()
@@ -69,6 +71,12 @@ export default class CarManage extends Component {
       record
     })
   }
+  handleLookDetail=(record)=>{//查看详情
+    this.setState({
+      openCarDetailInfo:true,
+      record
+    })
+  }
   render() {
     // 用户车辆管理
     // #TODO
@@ -118,6 +126,8 @@ export default class CarManage extends Component {
           <Popconfirm title="你确定要删除?" onConfirm={()=>this.handleRemoveCarInfo(record)}  okText="是" cancelText="否">
             <a href='javascrip:'>删除</a>
           </Popconfirm>
+          <Divider type="vertical" />
+          <a href='javascrip:' onClick={()=>this.handleLookDetail(record)}>查看详情</a>
         </span>
       )
     }];    
@@ -157,7 +167,7 @@ export default class CarManage extends Component {
             })
           }}
           footer={null}
-          destroyOnClose = {true}
+          destroyOnClose ={true}
           width={1000}
         >
           <AddCarInfoFrom _this={this} record={this.state.record}/>
@@ -190,6 +200,21 @@ export default class CarManage extends Component {
           width={700}
         >
           <LookRepairInfo record={this.state.record} />
+        </Modal>
+
+        <Modal
+          title="车辆详情"
+          visible={this.state.openCarDetailInfo}
+          onCancel={()=>{
+            this.setState({
+              openCarDetailInfo:false
+            })
+          }}
+          footer={null}
+          destroyOnClose = {true}
+          width={700}
+        >
+          <CarDetailInfo _this={this} record={this.state.record} />
         </Modal>
       </div>
     )

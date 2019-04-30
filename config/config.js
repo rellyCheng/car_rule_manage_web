@@ -70,6 +70,7 @@ export default {
   },
   proxy: {
     '/api': {
+      // target: 'http://118.24.218.25:8425/',
       target: 'http://192.168.1.160:8425/',
       changeOrigin: true,
     },

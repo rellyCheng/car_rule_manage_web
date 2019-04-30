@@ -3,6 +3,7 @@ import PageHeaderWrapper from "@/components/PageHeaderWrapper";
 import {Table,Card,Divider,Popconfirm, message,Button, Modal, Form} from 'antd';
 import BrokenInfoFilter from './BrokeInfoFilter'
 import { connect } from 'dva';
+import BrokeInfoDetail from "./BrokeInfoDetail"
 @connect(({brokeManage,loading}) => ({
   brokeManage,
   brokeListLoading:loading.effects['brokeManage/fetchBrokeList']
@@ -14,6 +15,7 @@ export default class MyBrokeInfoManage extends Component {
   state={
     current:1,
     filterVal:{},
+    openBrokeDetailInfo:false
   }
   componentDidMount(){
     this.fetchList();
@@ -33,11 +35,20 @@ export default class MyBrokeInfoManage extends Component {
       filterVal:values
     })
   }
+  handleBrokeInfoDetail=(record)=>{
+    this.setState({
+       openBrokeDetailInfo:true,
+       record
+    })
+   }
   render() {
     const columns = [{
       title: '违章地址',  
       dataIndex: 'address',
       key: 'address',
+      render:(text,record)=>{
+        return <span><a href='javascript:' onClick={()=>{this.handleBrokeInfoDetail(record)}}>{text}</a></span>
+      }
     },{
       title: '违章日期',
       dataIndex: 'date',
@@ -92,6 +103,20 @@ export default class MyBrokeInfoManage extends Component {
             />
           </Card>
         </PageHeaderWrapper>
+         <Modal
+          title="违章详情"
+          visible={this.state.openBrokeDetailInfo}
+          onCancel={()=>{
+            this.setState({
+              openBrokeDetailInfo:false
+            })
+          }}
+          width={1000}
+          footer={null}
+          destroyOnClose={true}
+        >
+        <BrokeInfoDetail _this={this} record={this.state.record}/>
+        </Modal>
       </div>
     );
   }

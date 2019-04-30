@@ -4,6 +4,7 @@ import {Table,Card,Divider,Popconfirm, message,Button, Modal, Form} from 'antd';
 import BrokeInfoForm from "./BrokeInfoForm"
 import BrokenInfoFilter from './BrokeInfoFilter'
 import DealBroke from './DealBroken'
+import BrokeInfoDetail from "./BrokeInfoDetail"
 import { connect } from 'dva';
 @connect(({brokeManage,loading}) => ({
   brokeManage,
@@ -16,7 +17,8 @@ export default class UserManage extends Component {
     openEditBrokeInfo:false,
     current:1,
     filterVal:{},
-    openDealBroke:false
+    openDealBroke:false,
+    openBrokeDetailInfo:false
   }
   componentDidMount(){
     this.fetchList();
@@ -48,7 +50,7 @@ export default class UserManage extends Component {
   }
   addBrokeInfo=()=>{
     this.setState({
-      openBrokeInfo:true
+      openBrokeInfo:true,
     })
   }
   handleDelBrokeInfo=(record)=>{
@@ -61,11 +63,20 @@ export default class UserManage extends Component {
     })
     this.fetchList();
   }
+  handleBrokeInfoDetail=(record)=>{
+    this.setState({
+       openBrokeDetailInfo:true,
+       record
+    })
+   }
   render() {
     const columns = [{
       title: '违章地址',  
       dataIndex: 'address',
       key: 'address',
+      render:(text,record)=>{
+        return <span><a href='javascript:' onClick={()=>{this.handleBrokeInfoDetail(record)}}>{text}</a></span>
+      }
     },{
       title: '违章日期',
       dataIndex: 'date',
@@ -148,7 +159,7 @@ export default class UserManage extends Component {
           footer={null}
           destroyOnClose={true}
         >
-         <BrokeInfoForm _this={this}/>
+         <BrokeInfoForm  _this={this}/>
         </Modal>
 
         <Modal
@@ -178,6 +189,20 @@ export default class UserManage extends Component {
         >
          <DealBroke _this={this} record={this.state.record}/>
         </Modal>
+        <Modal
+        title="违章详情"
+        visible={this.state.openBrokeDetailInfo}
+        onCancel={()=>{
+          this.setState({
+            openBrokeDetailInfo:false
+          })
+        }}
+        width={1000}
+        footer={null}
+        destroyOnClose={true}
+      >
+       <BrokeInfoDetail _this={this} record={this.state.record}/>
+      </Modal>
       </div>
     );
   }
