@@ -43,10 +43,6 @@ export default class AddCarInfoFrom extends Component {
     })
   }
   handleChange=(values)=>{
-   console.log(values)
-      // this.setState({
-      //     userId:value.key
-      // })
       this.props.form.setFieldsValue({
         userId:values.key
       })
@@ -60,7 +56,8 @@ export default class AddCarInfoFrom extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
-      const { dispatch } = this.props;
+      if(!err){
+        const { dispatch } = this.props;
       let key1=[]
       if(values.imgList){
         let key=''
@@ -107,6 +104,7 @@ export default class AddCarInfoFrom extends Component {
             }
           }
         })
+      }
       }
     
     })

@@ -56,69 +56,65 @@ export default class BrokeInfoForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
-      console.log(values)
-      const { dispatch } = this.props;
-      const record = this.props.record;
-      let key = "";
-      let key1 = [];
-      if (values.imgList) {
-        console.log(this.state.fileList)
-        this.state.fileList.map(item=>{
-          if(item.response){
-            key = item.response.data.key;
-            key1.push(key)
+      if (!err){
+        console.log(values)
+        const { dispatch } = this.props;
+        const record = this.props.record;
+        let key = "";
+        let key1 = [];
+        if (values.imgList) {
+          console.log(this.state.fileList)
+          this.state.fileList.map(item=>{
+            if(item.response){
+              key = item.response.data.key;
+              key1.push(key)
+            }
+          })
+          if(record){
+            values.id = record.id;
+            record.imgList.map(item=>{
+              key1.push(item)
+            })
           }
-        })
-        if(record.imgList){
-          // key1.push(record.imgList)
-          record.imgList.map(item=>{
-            key1.push(item)
+        }
+        values.imgList = key1;
+        values.date = moment(values.date).format(dateFormat);
+        if(!isEmpty(record)){
+          //修改
+          dispatch({
+            type:'brokeManage/fechUpdateBrokenInfo',
+            payload:values,
+            callback:res=>{
+              if(res.state =='OK'){
+                message.success('修改成功');
+                this.props._this.setState({
+                  openEditBrokeInfo:false
+                })
+                this.props._this.fetchList();
+              }else{
+                message.error(res.message)
+              }
+            }
+          })
+        }else{
+          //增加
+          dispatch({
+            type:'brokeManage/fechAddBrokenInfo',
+            payload:values,
+            callback:res=>{
+              if(res.state =='OK'){
+                message.success('添加成功');
+                this.props._this.setState({
+                  openBrokeInfo:false
+                })
+                this.props._this.fetchList();
+              }else{
+                message.error(res.message)
+              }
+            }
           })
         }
-        // this.state.fileList.map(item => {
-        //   key = item.response.data.key;
-        //   key1.push(key);
-        // });
       }
-      values.imgList = key1;
-      values.date = moment(values.date).format(dateFormat);
-      values.id = record.id;
-      if(!isEmpty(record)){
-        //修改
-        dispatch({
-          type:'brokeManage/fechUpdateBrokenInfo',
-          payload:values,
-          callback:res=>{
-            if(res.state =='OK'){
-              message.success('修改成功');
-              this.props._this.setState({
-                openEditBrokeInfo:false
-              })
-              this.props._this.fetchList();
-            }else{
-              message.error(res.message)
-            }
-          }
-        })
-      }else{
-        //增加
-        dispatch({
-          type:'brokeManage/fechAddBrokenInfo',
-          payload:values,
-          callback:res=>{
-            if(res.state =='OK'){
-              message.success('添加成功');
-              this.props._this.setState({
-                openBrokeInfo:false
-              })
-              this.props._this.fetchList();
-            }else{
-              message.error(res.message)
-            }
-          }
-        })
-      }
-    
     })
   };
 
@@ -147,14 +143,10 @@ export default class BrokeInfoForm extends Component {
           <Form onSubmit={this.handleSubmit}>
            <Row span={24}>
            <div style={{ marginLeft: "120px" }}>
-              {getFieldDecorator("imgList", {
+           <Form.Item>
+             {getFieldDecorator("imgList", {
                 initialValue: record.imgList,
-                rules: [
-                  {
-                    required: true,
-                    message: "请上传违章图"
-                  }
-                ]
+                rules: [{required:true, message: '请上传头像'}],
               })(
                 <Upload
                   {...props}
@@ -170,6 +162,7 @@ export default class BrokeInfoForm extends Component {
                   )}
                 </Upload>
               )}
+           </Form.Item>
             </div>
            </Row>
             <Row span={24}>
