@@ -22,7 +22,7 @@ export default class UserManage extends Component {
   fetchList=(current = this.state.current,values = this.state.filterVal)=>{
     const { dispatch } = this.props;
     values.current = current;
-    values.size = 2;
+    values.size = 5;
     dispatch({
       type:'userManage/fetchUserInfo',
       payload:values
@@ -81,6 +81,10 @@ export default class UserManage extends Component {
       title: '用户名',
       dataIndex: 'userName',
       key: 'userName',
+    },{
+      title: '驾照分数',
+      dataIndex: 'points',
+      key: 'points',
     },{
       title: '操作',
       key:'actiion',
