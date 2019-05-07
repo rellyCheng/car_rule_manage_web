@@ -53,7 +53,6 @@ export default class BrokeInfoFilter extends Component {
                 <Col span={6}>
                   <Form.Item label="违章类型" {...formItemLayout}>
                     {getFieldDecorator("type", {
-                      initialValue: record.type,
                       rules: [
                         {
                           required: true,
