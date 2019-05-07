@@ -41,6 +41,23 @@ export default class MyBrokeInfoManage extends Component {
        record
     })
    }
+   handleDealBroken=(record)=>{
+        const {dispatch} = this.props
+        let values = {}
+        values.userId = sessionStorage.getItem("userId");
+        values.brokeInfoId = record.id
+        dispatch({
+            type:'brokeManage/fetchDeal',
+            payload:values,
+            callback:res=>{
+             if(res.state=="OK"){
+                 message.success('处理成功')
+               }else{
+                 message.error(res.message)
+               }
+            }
+        })
+ }
   render() {
     const columns = [{
       title: '违章地址',  
@@ -73,6 +90,12 @@ export default class MyBrokeInfoManage extends Component {
       title: '扣除驾照的积分',
       dataIndex: 'points',
       key: 'points',
+    },{
+      title: '操作',
+      key:'actiion',
+      render: (text, record) => (
+        record.userId==null? <a href="javascript:;" onClick={()=> this.handleDealBroken(record)}>处理违章</a>:''
+      ),
     }];
     const {brokeManage,brokeListLoading} = this.props;
     console.log(brokeManage.brokeList.pageData)
