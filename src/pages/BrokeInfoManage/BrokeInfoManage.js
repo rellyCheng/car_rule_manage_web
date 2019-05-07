@@ -106,9 +106,9 @@ export default class UserManage extends Component {
       key:'actiion',
       render: (text, record) => (
         <span>
-           <a href="javascript:;" onClick={()=> this.editorBrokeInfo(record)}>编辑</a>
+            {record.userId == null ? <a href="javascript:;" onClick={()=> this.dealBrokeInfo(record)}>处理违章</a> : <span>已处理</span> }
            <Divider type="vertical" />
-           <a href="javascript:;" onClick={()=> this.dealBrokeInfo(record)}>处理违章</a>
+           <a href="javascript:;" onClick={()=> this.editorBrokeInfo(record)}>编辑</a>
             <Divider type="vertical" />
             <Popconfirm title="确认删除？" okText="确定" cancelText="取消"  onConfirm={() => this.handleDelBrokeInfo(record)}>
               <a href="javascript:;">删除</a>
