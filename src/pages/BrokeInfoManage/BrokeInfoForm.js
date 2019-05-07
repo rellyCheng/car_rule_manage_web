@@ -247,8 +247,10 @@ export default class BrokeInfoForm extends Component {
                     ]
                   })(
                     <Select style={{ width: 240 }} placeholder="请选择违章类型">
-                      <Option value="一般违章">一般违章</Option>
-                      <Option value="严重违章">严重违章</Option>
+                      <Option value="一闯红灯">闯红灯</Option>
+                      <Option value="压线">压线</Option>
+                      <Option value="占用应急车道">占用应急车道</Option>
+                      <Option value="超速">超速</Option>
                     </Select>
                   )}
                 </Form.Item>
