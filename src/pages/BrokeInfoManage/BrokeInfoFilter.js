@@ -51,15 +51,24 @@ export default class BrokeInfoFilter extends Component {
                     </Form.Item>
                 </Col>
                 <Col span={6}>
-                    <Form.Item
-                    label="违章地址" 
-                    >  
-                    {getFieldDecorator('address', {  
-                      
+                  <Form.Item label="违章类型" {...formItemLayout}>
+                    {getFieldDecorator("type", {
+                      initialValue: record.type,
+                      rules: [
+                        {
+                          required: true,
+                          message: "请输入违章类型"
+                        }
+                      ]
                     })(
-                        <Input placeholder="请输入违章地址" />
+                      <Select style={{ width: 240 }} placeholder="请选择违章类型">
+                        <Option value="一闯红灯">闯红灯</Option>
+                        <Option value="压线">压线</Option>
+                        <Option value="占用应急车道">占用应急车道</Option>
+                        <Option value="超速">超速</Option>
+                      </Select>
                     )}
-                    </Form.Item>
+                  </Form.Item>
                 </Col>
                 <Col span={6}>
                     <Form.Item
