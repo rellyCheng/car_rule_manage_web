@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form,Input, Row, Col, Button,DatePicker } from 'antd';
+import { Form,Input, Row, Col, Button,DatePicker,Select } from 'antd';
 import moment from 'moment'
 
 const dateFormat ='YYYY-MM-DD hh:mm:ss'
@@ -44,7 +44,7 @@ export default class BrokeInfoFilter extends Component {
                       
                     })(
                     <DatePicker
-                        format={dateFormat}
+                        format={"YYYY-MM-DD"}
                         placeholder="请输入违章日期"
                       />
                     )}
@@ -53,14 +53,9 @@ export default class BrokeInfoFilter extends Component {
                 <Col span={6}>
                   <Form.Item label="违章类型" {...formItemLayout}>
                     {getFieldDecorator("type", {
-                      rules: [
-                        {
-                          required: true,
-                          message: "请输入违章类型"
-                        }
-                      ]
+                   
                     })(
-                      <Select style={{ width: 240 }} placeholder="请选择违章类型">
+                      <Select allowClear style={{ width: 150 }} placeholder="请选择违章类型">
                         <Option value="一闯红灯">闯红灯</Option>
                         <Option value="压线">压线</Option>
                         <Option value="占用应急车道">占用应急车道</Option>
@@ -71,7 +66,7 @@ export default class BrokeInfoFilter extends Component {
                 </Col>
                 <Col span={6}>
                     <Form.Item
-                    label="违章车牌号" 
+                    label="车牌号" 
                     >  
                     {getFieldDecorator('cardNumber', {  
                       
