@@ -25,7 +25,9 @@ export default class CarManage extends Component {
     console.log(current)
     const {dispatch} = this.props
     let values = {}
-    values.userId = sessionStorage.getItem("userId");
+    if(sessionStorage.getItem("userId")!="1"){
+      values.userId = sessionStorage.getItem("userId");
+    }
     values.current = current
     values.size = 10
     dispatch({
