@@ -12,7 +12,7 @@ export default {
 
   state: {
     status: undefined,
-    currentUser:{}
+    userInfo:{}
   },
 
   effects: {
@@ -29,6 +29,10 @@ export default {
         sessionStorage.setItem('userId', response.data.id);
         reloadAuthorized();
         yield put(routerRedux.replace('/index'));
+        yield put({
+          type:'saveUserInfo',
+          payload:response.data,
+        })
       } else {
         message.error(response.message);
       }
@@ -49,5 +53,11 @@ export default {
         currentUser:payload.data
       };
     },
+    saveUserInfo(state, {payload}){
+      return{
+        ...state,
+        userInfo:payload
+      }
+  },
   },
 };

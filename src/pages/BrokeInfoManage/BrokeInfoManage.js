@@ -106,7 +106,7 @@ export default class UserManage extends Component {
       key:'actiion',
       render: (text, record) => (
         <span>
-            {record.userId == null ? <a href="javascript:;" onClick={()=> this.dealBrokeInfo(record)}>处理违章</a> : <span>已处理</span> }
+            {record.handle == "已处理" ? <span>已处理</span> :  <a href="javascript:;" onClick={()=> this.dealBrokeInfo(record)}>处理违章</a> }
            <Divider type="vertical" />
            <a href="javascript:;" onClick={()=> this.editorBrokeInfo(record)}>编辑</a>
             <Divider type="vertical" />

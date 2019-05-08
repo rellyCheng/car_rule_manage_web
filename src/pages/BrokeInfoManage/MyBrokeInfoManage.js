@@ -15,7 +15,8 @@ export default class MyBrokeInfoManage extends Component {
   state={
     current:1,
     filterVal:{},
-    openBrokeDetailInfo:false
+    openBrokeDetailInfo:false,
+    record:{}
   }
   componentDidMount(){
     this.fetchList();
@@ -41,6 +42,39 @@ export default class MyBrokeInfoManage extends Component {
        record
     })
    }
+   dealBrokeInfo=(record)=>{
+    this.setState({
+      openDealBroke:true,
+      record
+    })
+  }
+
+
+  handleDealBroken=()=>{
+        const {dispatch} = this.props;
+        const { record } = this.state;
+        console.log(record.id);
+        let values = {};
+        values.userId = record.userId;
+        values.brokeInfoId = record.id;
+        dispatch({
+            type:'brokeManage/fetchDeal',
+            payload:values,
+            callback:res=>{
+             if(res.state=="OK"){
+                 message.success('处理成功')
+                 this.setState({
+                     openDealBroke:false
+                 })
+                 this.fetchList();
+               }else{
+                 message.error(res.message)
+               }
+            }
+        })
+   
+ }
+
   render() {
     const columns = [{
       title: '违章地址',  
@@ -73,9 +107,18 @@ export default class MyBrokeInfoManage extends Component {
       title: '扣除驾照的积分',
       dataIndex: 'points',
       key: 'points',
+    },{
+      title: '操作',
+      key:'actiion',
+      render: (text, record) => (
+        <span>
+            {record.handle == "已处理" ? <span>已处理</span> :  <a href="javascript:;" onClick={()=> this.dealBrokeInfo(record)}>处理违章</a> }
+          </span>  
+      ),
     }];
     const {brokeManage,brokeListLoading} = this.props;
-    console.log(brokeManage.brokeList.pageData)
+    console.log(brokeManage.brokeList.pageData);
+    const userEntity = this.state.record.userEntity || {};
     return (
       <div>
         <PageHeaderWrapper>
@@ -116,6 +159,20 @@ export default class MyBrokeInfoManage extends Component {
           destroyOnClose={true}
         >
         <BrokeInfoDetail _this={this} record={this.state.record}/>
+        </Modal>
+        <Modal
+          title="处理违章"
+          visible={this.state.openDealBroke}
+          onCancel={()=>{
+            this.setState({
+              openDealBroke:false
+            })
+          }}
+          width={800}
+          onOk={()=>{this.handleDealBroken()}}
+          destroyOnClose={true}
+        >
+        当前操作将会扣除车主：<span style={{color:'green',fontSize:'20px'}}>{userEntity.name}</span> 驾驶证号码：<span style={{color:'green',fontSize:'20px'}}>{userEntity.driverCardNumber}</span> 积分：<span style={{color:'red'}}>{this.state.record.points}</span>
         </Modal>
       </div>
     );

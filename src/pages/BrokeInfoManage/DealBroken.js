@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Select,Button,Spin, message} from 'antd'
+import {Select,Button,Spin, message, Divider} from 'antd'
 import {connect} from 'dva'
 
 const Option = Select.Option;
@@ -20,7 +20,7 @@ export default class DealBroken extends Component {
                 type:'brokeManage/fetchBrokeUser',
                 payload:value
             })
-        },2000)
+        },1000)
         this.setState({
             fetching: true,
         })
@@ -28,7 +28,7 @@ export default class DealBroken extends Component {
     handleChange=(value)=>{
         console.log(value)
         this.setState({
-            userId:value.key
+            userId:value.key,
         })
     }
     handleDealBroken=()=>{
@@ -62,18 +62,22 @@ export default class DealBroken extends Component {
         console.log(brokeUser)
         return (
         <div>
+            <h3>当前受罚车主：{this.props.record.userEntity.name}</h3>
+            <h3>驾驶证号码：{this.props.record.userEntity.driverCardNumber}</h3>
+            <Divider type='horizontal'/>
+            <span style={{color:'red'}}>如需更改受罚车主请搜索：</span>
             <Select
               showSearch
                 // value={value}
                 labelInValue
-                placeholder="请搜索用户"
+                placeholder="根据名字模糊搜索车主"
                 notFoundContent={this.state.fetching ? <Spin size="small" /> : null}
                 filterOption={false}
                 onSearch={this.fetchUser}
                 onChange={this.handleChange}
                 style={{ width: '100%' }}
             >
-                {brokeUser.map(item => <Option key={item.id}>{item.name}</Option>)}
+                {brokeUser.map(item => <Option key={item.id}>{item.name+'（'+item.driverCardNumber+'）'}</Option>)}
             </Select>
             <div style={{textAlign:'right'}}>
                 <Button type="primary" style={{marginTop:'60px'}} onClick={this.handleDealBroken}>处理</Button>
